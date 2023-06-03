@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const roomSchema = new mongoose.Schema({
     Room_ID: { type: Number, required: true },
+    propertyName: { type: String, required: true },
     address: { type: String, required: true },
     type: { type: String, required: true },
     postedDate: { type: Date, required: true },
