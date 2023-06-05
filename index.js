@@ -6,8 +6,6 @@ const { default: axios } = require("axios");
 const Room = require('./models/RoomInf');
 const roommateRoutes = require('./routes/roommates')
 const cors = require("cors");
-const Post = require('./models/posts');
-const multer = require('multer');
 
 //express app
 const app = express();
@@ -27,26 +25,10 @@ app.use((req, res, next) => {
   console.log(req.path, req.method)
   next()
 })
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static("uploads"));
-
-//let
-let storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './uploads');
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.fieldname + "_" + Date.now() + "_" + file.originalname);
-  },
-});
-
-let upload = multer({
-  storage: storage,
-}).fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]);
-
-
 //Routes
 app.use('/api/roommates', roommateRoutes)
+app.use("/api/post", require("./routes/routes"));
+
 app.post("/authenticate", async (req, res) => {
   const { username } = req.body;
 
@@ -85,25 +67,6 @@ app.get('/room', async (req, res) => {
     res.status(500).json({ error: 'Failed to fetch room listings' });
   }
 });
-
-app.post('/addroom', upload, async (req, res) => {
-  const post = req.body;
-
-  let imagename = '';
-  if (req.files?.image) {
-    imagename = req.files.image[0].filename;
-  }
-
-  const videoName = req.files && req.files.video ? req.files.video[0].filename : null;
-  post.image = imagename;
-  post.video = videoName;
-  try {
-    await Post.create(post);
-    res.status(201).json({ message: 'Post created successfully!' })
-  } catch (err) {
-    res.status(400).json({ message: err.message })
-  }
-})
 
 app.get('/room/:Room_ID', async (req, res) => {
   try {
