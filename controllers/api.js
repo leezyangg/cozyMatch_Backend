@@ -23,7 +23,6 @@ module.exports = class API {
     static async createdPost(req, res) {
         console.log(req)
         const post = req.body;
-
         let imagename = '';
         if (req.files?.image) {
             imagename = req.files.image[0].filename;

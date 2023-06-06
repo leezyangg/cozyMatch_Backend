@@ -96,6 +96,9 @@ app.get('/room/:Room_ID', async (req, res) => {
   }
 });
 
+// Serve static files from the 'upload' folder
+app.use('/uploads', express.static('uploads'));
+
 //listen for request
 app.listen(process.env.PORT, () => {
   console.log('connected to db & listening on port', process.env.PORT)
