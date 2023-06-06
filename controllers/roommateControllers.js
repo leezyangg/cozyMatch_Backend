@@ -26,11 +26,11 @@ const getRoommate = async (req, res) => {
 
 // add a new roommate
 const addRoommate = async (req, res) => {
-    const { name, occupation, cleanRoomFrequency, address, smoking, pet, drink, isEarly, distanceFromCollege, renterFee } = req.body
+    const { roommate_id, name, occupation, cleanRoomFrequency, address, smoking, pet, drink, isEarly, distanceFromCollege, renterFee } = req.body
 
     // add doc to db
     try {
-        const roommate = await Roommate.create({ name, occupation, cleanRoomFrequency, address, smoking, pet, drink, isEarly, distanceFromCollege, renterFee })
+        const roommate = await Roommate.create({ roommate_id, name, occupation, cleanRoomFrequency, address, smoking, pet, drink, isEarly, distanceFromCollege, renterFee })
         res.status(200).json(roommate)
     } catch (error) {
         res.status(400).json({ error: error.message })

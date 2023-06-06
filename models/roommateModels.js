@@ -3,6 +3,10 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const roommateSchema = new Schema({
+    roommate_id: {
+        type: Number,
+        required: true
+    },
     name: {
         type: String,
         required: true
