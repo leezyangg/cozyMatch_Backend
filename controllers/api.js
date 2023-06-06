@@ -23,13 +23,14 @@ module.exports = class API {
     static async createdPost(req, res) {
         console.log(req)
         const post = req.body;
-        let imagename = '';
+
+        let imageNames = [];
         if (req.files?.image) {
-            imagename = req.files.image[0].filename;
+            imageNames = req.files.image.map(file => file.filename);
         }
 
         const videoName = req.files.video ? req.files.video[0].filename : null;
-        post.image = imagename;
+        post.image = imageNames;
         post.video = videoName;
         try {
             await Post.create(post);

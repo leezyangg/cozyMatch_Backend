@@ -14,7 +14,7 @@ let storage = multer.diskStorage({
 
 let upload = multer({
     storage: storage,
-}).fields([{ name: 'image', maxCount: 1 }, { name: 'video', maxCount: 1 }]);
+}).fields([{ name: 'image', maxCount: 3 }, { name: 'video', maxCount: 1 }]);
 
 router.get("/", API.fetchAllPost);
 router.get("/:id", API.fetchPostByID);

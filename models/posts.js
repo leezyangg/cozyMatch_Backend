@@ -15,7 +15,7 @@ const postSchema = mongoose.Schema({
     postedDate: Date,
     facilities: Array,
     description: String,
-    image: String,
+    image: [String],
     video: String,
     created: {
         type: Date,
